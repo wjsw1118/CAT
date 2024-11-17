@@ -52,7 +52,7 @@ function exc_install() {
         # install ctcdecode is annoying...
         [[ $force == "False" && $(check_py_package ctcdecode) -eq 0 ]] || {
             if [ ! -d src/ctcdecode ]; then
-                git clone --recursive https://github.com/maxwellzh/ctcdecode.git src/ctcdecode
+                git clone --recursive https://github.com/wjsw1118/ctcdecode.git src/ctcdecode
             else
                 cd src/ctcdecode
                 git pull --recurse-submodules
@@ -68,14 +68,14 @@ function exc_install() {
         # install kenlm
         # kenlm is a denpendency of cat, so we first check the python package installation
         [[ $force == "False" && $(check_py_package kenlm) -eq 0 && -x src/bin/lmplz && -x src/bin/build_binary ]] || {
-            python -m pip install -e git+https://github.com/kpu/kenlm.git#egg=kenlm
+            python -m pip install -e git+https://github.com/wjsw1118/kenlm.git#egg=kenlm
 
             cd src/kenlm
             mkdir -p build && cd build
             (cmake .. && make -j $(nproc)) || {
                 echo "If you meet building error and have no idea why it is raised, "
                 echo "... please first confirm all requirements are installed. See"
-                echo "... https://github.com/kpu/kenlm/blob/master/BUILDING"
+                echo "... https://github.com/wjsw1118/kenlm/blob/master/BUILDING"
                 return 1
             }
 
@@ -88,17 +88,8 @@ function exc_install() {
     ctc-crf | cat | all)
         # install ctc-crf loss function
         [[ $force == "False" && $(check_py_package ctc_crf) -eq 0 ]] || {
-            if [ $(command -v gcc-7) ]; then
-                export ver=7
-            elif [ $(command -v gcc-6) ]; then
-                export ver=6
-            else
-                echo "gcc-6/gcc-7 command not found. You may need to install one of them."
-                return 1
-            fi
-
             cd src/ctc_crf
-            CC=gcc-${ver} CXX=g++-${ver} make || return 1
+            make || return 1
             # test the installation
             echo "Test CTC-CRF installation:"
             cd test && python main.py || return 1
