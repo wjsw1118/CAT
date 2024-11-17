@@ -1,11 +1,11 @@
 # gather >= 0.2.3
--e git+https://github.com/maxwellzh/torch-gather.git#egg=gather
+-e git+https://github.com/wjsw1118/torch-gather.git#egg=gather
 # warp-rnnt >= 0.9.0
--e git+https://github.com/maxwellzh/warp-rnnt.git#egg=warp-rnnt
+-e git+https://github.com/wjsw1118/warp-rnnt.git#egg=warp-rnnt
 # webdataset, do not use 'pip install webdataset', that's outdated
--e git+https://github.com/webdataset/webdataset.git@d7334016f44a03c4a385971aa835c4f460d3f30a#egg=webdataset
+-e git+https://github.com/wjsw1118/webdataset.git#egg=webdataset
 # warp-ctct >= 0.3.0
--e git+https://github.com/maxwellzh/warp-ctct.git#egg=warp-ctct
+-e git+https://github.com/wjsw1118/warp-ctct.git#egg=warp-ctct
 
 # module dependencies
 torch>=1.9.0
